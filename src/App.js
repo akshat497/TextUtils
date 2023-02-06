@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import React from 'react'
+import Navbar from './Navbar'
+import {BrowserRouter, Route, Routes} from "react-router-dom"
+import About from './About'
+import TextUtils from './TextUtils'
+import { useState } from 'react'
+export default function App() {
+  const [Dark, setDark] = useState("dark")
+  function enable(){
+      if (Dark==='dark') {
+          setDark('light')
+         document.body.style.backgroundColor="white"
+         document.body.style.color="black"
+      
+          
+      }else{
+          setDark('dark')
+          document.body.style.backgroundColor="		#36454F"
+          document.body.style.color="white"
+      
+      }
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <BrowserRouter>
+    <div >
 
-export default App;
+     <Navbar enable={enable} Dark={Dark}/>
+     
+    <Routes>
+     <Route path="/Home" element={<TextUtils heading="Write your text here " Dark={Dark}/>}/>
+    <Route path='/About' element=<About/>/>
+    </Routes>
+    </div>
+    </BrowserRouter>
+  )
+}
